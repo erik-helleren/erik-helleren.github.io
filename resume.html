@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+        <title>Erik Helleren</title>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic'
+        rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <style>
+            html, body, main, section, header, ul, p, h1, h2, h3 {
+              font-family: 'Calibri', 'Open Sans', 'sans-serif';
+              font-size: 14px;
+              margin: 0; padding: 0;
+              display: block;
+            }
+            
+            a {
+              color: #C00000;
+              text-decoration: none;
+            }
+            
+            a:visited {
+              color: #7B0796;
+            }
+            
+            a:hover {
+              text-decoration: underline;
+            }
+            
+            h1 {
+              text-transform: uppercase;
+              font-size:
+            }
+            
+            h2 {
+              text-transform: uppercase;
+              color: #898989;
+              font-size: 2em;
+              position: relative;
+              font-weight: 400;
+            }
+            
+            h3, .tenure {
+              font-size: 1.5em;
+              font-weight: 300;
+            }
+            
+            h3 {
+              margin-top: 0;
+              width: 66%;
+              float: left;
+            }
+            
+            table {
+              width: 100%;
+              text-transform: uppercase;
+              font-size: 1.3em;
+            }
+            
+            td:first-child {
+              text-align: right;
+              color: #A9A9A9;
+              letter-spacing: 5px;
+              font-weight: bold;
+            }
+            
+            td:last-child {
+              text-align: justify; /* HTML justification sucks, but in this case... */
+            }
+            
+            hr {
+              display: none;
+            }
+            
+            main {
+              padding: 15px;
+              max-width: 800px;
+              margin: 0 auto;
+            }
+            
+            section {
+              margin-top: 1em;
+            }
+            
+            section > div {
+              margin-top: 1em;
+              overflow: hidden; /* Clear floated children */
+            }
+            
+            section > div p {
+              clear: both;
+            }
+            
+            section > header {
+              position: relative;
+            }
+            
+            ul {
+              clear: both;
+            }
+            
+            li {
+              margin-left: 2em;
+            }
+            
+            p, li {
+              text-align: justify;
+            }
+            
+            .tenure {
+              float: right;
+              color: #6F6F6F;
+              background-color: #F5F5F5;
+              border-radius: 6px;
+              padding: 4px 6px;
+              font-size: 85%;
+            }
+            
+            span.keywords {
+              font-size: 10px;
+              color: #B16666;
+            }
+            
+            thead {
+              display: none;
+            }
+            
+            main > header {
+              width: 100%;
+              float: left;
+              margin-bottom: 1em;
+            }
+            
+            h1 {
+              float: left;
+            }
+            
+            h1, h2, .label {
+              font-size: 2.5em;
+              text-transform: uppercase;
+              font-weight: 300;
+              font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Lato', 'sans-serif'
+            }
+            
+            #contact {
+             clear: both;
+             float: right;
+            }
+            
+            header > span.fa {
+              text-align: center;
+              margin-right: 3px;
+              position: absolute;
+              width: 40px;
+              top: 10px;
+              font-size: 30px;
+              /*transform: translateX(-110%); PDF no likey */
+              margin-left: -50px;
+              color: #DADADA;
+            }
+            
+            .label {
+              float: right;
+              color: #DADADA;
+            }
+            
+            #summary {
+              color: #717171;
+              font-size: 1.25em;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <main>
+            <header>
+                 <h1>Erik <span style="color: #C00000;">Helleren</span></h1>
+ <span class="label">Software Engineer</span>
+
+                <p id="contact"> <span class="email"><a href="mailto:erik.helleren@gmail.com">erik.helleren@gmail.com</a></span>
+
+                </p>
+            </header>
+            <section id="summary">Software Engineer with experience designing and implementing fixes, features,
+                applications, and systems which are resilient and highly performant.</section>
+            <hr>
+            <section id="skills">
+                <header> <span class="fa fa-lg fa-code"></span> 
+                     <h2>skills</h2>
+
+                </header>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Skill</th>
+                            <th>Keywords</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="width: 25%;">Development</td>
+                            <td class="keywords">Java | Ruby | R</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">System Design</td>
+                            <td class="keywords">Concurrent | Distributed | Fault Tolerant</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">Tools</td>
+                            <td class="keywords">Chef | Kafka</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">Other</td>
+                            <td class="keywords">Recruiting | Fintech | Data Encryption</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            <hr>
+            <section id="employment">
+                <header> <span class="fa fa-lg fa-building"></span> 
+                     <h2>employment</h2>
+
+                </header>
+                <div>
+                     <h3><em>Sr Software Engineer</em>,
+              <a href="https://www.cmegroup.com/">CME Group</a>
+              </h3>
+ <span class="tenure">2014-05 — Present</span>
+
+                    <p>
+                        <p>Member of the team responsible for improvements and maintenance on CME&#39;s
+                            core trading execution platform, powering the worlds largest derivatives
+                            exchange.</p>
+                    </p>
+                    <ul>
+                        <li>Successfully launched several features that directly impact how finical
+                            markets work, improving liquidity and price discovery</li>
+                        <li>R&amp;D into emerging technologies and new architectures, designing and
+                            implementing proof of concepts.</li>
+                        <li>Co-designed and implemented with peer an architecture to capture real-time
+                            order entry data and stream it in an easier to consume way than existing
+                            transports. Also streaming that data to Amazon Web Services, where next
+                            generation cloud applications are being designed base off this architecture.</li>
+                        <li>Advised design and implementation of 3 critical applications based on
+                            above architecture.</li>
+                        <li>Leading a recruiting revolution by evolving engineer hiring practices
+                            to ensure new hires meet or exceed our qualifications while building diversity
+                            in our intern and entry level engineer programs.</li>
+                        <li>Delivered a variety of easy to read reports based on data analysis I performed
+                            on the performance metrics, new recruiting process, and other data sets
+                            using R and Ruby to compile clear and concise summaries to make data driven
+                            decisions.</li>
+                    </ul> <span class="keywords">Java  | Ruby  | R  | Distributed Systems  | Chef  | Fault Tolerant Design  | Concurrency  | Recruiting </span> 
+                </div>
+                <div>
+                     <h3><em>Software Engineer Intern</em>,
+              <a href="https://en.wikipedia.org/wiki/Better_Off_Ted#Plot">Sierra Nevada Corp</a>
+              </h3>
+ <span class="tenure">2013-01 — 2013-04</span>
+
+                    <p>
+                        <p>Worked on a variety of small projects on a small multi-functional team</p>
+                    </p> <span class="keywords">C++  | C  | OpenGL  | Java  | Natural Language Processing </span> 
+                </div>
+                <div>
+                     <h3><em>Owner and sole operator</em>,
+              Self Employed
+              </h3>
+ <span class="tenure">2005-09 — 2013-08</span>
+
+                    <p>
+                        <p>Created and ran a PC repair, instruction, and consultation business. Amassed
+                            dozens of repeat customers across several states.</p>
+                    </p>
+                </div>
+                <div>
+                     <h3><em>Cabin Counselor</em>,
+              <a href="http://wlcamp.org">William Lawrence Camp</a>
+              </h3>
+ <span class="tenure">2008-06 — 2012-08</span>
+
+                    <p>
+                        <p>Responsible for the health, safety and growth of boys ages 6 to 15.</p>
+                    </p> <span class="keywords">Conflict Resolution  | Teaching  | Leadership </span> 
+                </div>
+            </section>
+            <hr>
+            <section id="projects">
+                <header> <span class="fa fa-lg fa-star"></span> 
+                     <h2>projects</h2>
+
+                </header>
+                <div>
+                     <h3>
+          Recruiting Revolution at CME Group
+          </h3>
+ <span class="tenure">2015-06 — Present</span>
+
+                    <p>I saw a gap forming when a team was formed to standardizing the hiring
+                        practices across technology based on the process used by the trade execution
+                        team to select new employees. I emerged to be one of the leading forces
+                        on this team to provided a more efficient, equatable, and consistent hiring
+                        process while promoting diversity and inclusion.</p>
+                    <ul>
+                        <li>Took existing process used by single team, improved and formalized it.
+                            Prepared training materials and conducted several training sessions for
+                            interviewers.</li>
+                        <li>Ensured that there was appropriate structure for interviews to mitigate
+                            bias, and ensure an accurate and complete picture of the candidates skills.</li>
+                        <li>Setup a record collection system using Jira to deliver on the immediate
+                            need for information sharing and candidate tracking.</li>
+                        <li>Compiled reports about our hiring pipeline using hard data from Jira to
+                            facilitate better planning and program improvements.</li>
+                        <li>Solicited and incorporated feedback from interviewers and hiring managers
+                            throughout the process.</li>
+                        <li>Conducted 39 interviews during this recruiting season, and over 300 interviews
+                            were conducted using this new process. Participated in over 80 hire/no
+                            hire decisions.</li>
+                    </ul>
+                </div>
+                <div>
+                     <h3>
+          Vanguard: Data Streaming Architecture at CME Group
+          </h3>
+ <span class="tenure">2015-07 — Present</span>
+
+                    <p>Designed and built a real time, cross data center message bus using custom
+                        software and open source software (Apache Kafka) now used by several critical
+                        exchange components.</p>
+                    <ul>
+                        <li>Sought out this problem across teams, and proposed a solution and offered
+                            to design and deliver a well designed MVP.</li>
+                        <li>Designed a data flow architecture designed to handle legacy bare metal,
+                            greenfield development on bare metal, and future cloud applications.</li>
+                        <li>Co-designed and implemented a high performance resilient listener process
+                            to consume messages from UDP multicast and republish to Kafka.</li>
+                        <li>Written in Java, part of the application was designed to be garbage free</li>
+                        <li>Worked with application security teams to design a new to CME encryption
+                            scheme, making our data the most secure data stream at CME while minimizing
+                            the performance impact and implementation cost.</li>
+                        <li>Contributed to the design of 3 applications that use the Vanguard architecture.</li>
+                        <li>One of the first applications to use chef at CME to manage deployments
+                            to production automatically</li>
+                        <li>Dealt with setbacks caused by bugs, design problems, surprises, deployment
+                            problems, hardware failures, and the highly controlled CME deployment process</li>
+                    </ul>
+                </div>
+            </section>
+            <hr>
+            <section id="education">
+                <header> <span class="fa fa-lg fa-mortar-board"></span> 
+                     <h2>education</h2>
+
+                </header>
+                <div>
+                     <h3><em>BS Computer Science</em>, Purdue University</h3>
+ <span class="tenure">2010-09 — 2014-04</span>
+
+                </div>
+            </section>
+            <hr>
+            <section id="service">
+                <header> <span class="fa fa-lg fa-child"></span> 
+                     <h2>service</h2>
+
+                </header>
+                <div>
+                     <h3><em>Co-webmaster and Digital Consultant</em>,
+            <a href="http://www.wlcamp.org">William Lawrence Camp</a>
+          </h3>
+ <span class="tenure">2013-01 — 2016-01</span>
+
+                    <p>
+                        <p>Responsible for updating the camp&#39;s website and providing input and
+                            advice around the camp&#39;s efforts in social media, online advertising,
+                            and content creation.</p>
+                    </p>
+                </div>
+            </section>
+        </main>
+    </body>
+
+</html>
