@@ -1,0 +1,276 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Microbenchmarking - Java Performance Lecture Notes</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        <meta name="author" value="Erik Helleren">
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../../favicon.png">
+        
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Introduction</li><li class="chapter-item expanded "><a href="../../introduction/introduction.html"><strong aria-hidden="true">1.</strong> Introductions</a></li><li class="chapter-item expanded "><a href="../../introduction/standards.html"><strong aria-hidden="true">2.</strong> Standards</a></li><li class="chapter-item expanded "><a href="../../introduction/keyTerms.html"><strong aria-hidden="true">3.</strong> Key Terms</a></li><li class="chapter-item expanded affix "><li class="part-title">Theory</li><li class="chapter-item expanded "><a href="../../theory/queueTheory/index.html"><strong aria-hidden="true">4.</strong> Queue Theory</a></li><li class="chapter-item expanded "><a href="../../theory/statsPrimer/index.html"><strong aria-hidden="true">5.</strong> Statistics Primer</a></li><li class="chapter-item expanded "><a href="../../theory/distributionAnalysis/index.html"><strong aria-hidden="true">6.</strong> Distribution analysis</a></li><li class="chapter-item expanded "><a href="../../theory/coordinatedOmission/index.html"><strong aria-hidden="true">7.</strong> Coordinated Omission</a></li><li class="chapter-item expanded affix "><li class="part-title">Hardware</li><li class="chapter-item expanded "><a href="../../hardware/highLevel/index.html"><strong aria-hidden="true">8.</strong> Computer Architecture: High Level</a></li><li class="chapter-item expanded "><a href="../../hardware/cpu.html"><strong aria-hidden="true">9.</strong> Computer Architecture: CPU Design</a></li><li class="chapter-item expanded "><a href="../../hardware/Cache.html"><strong aria-hidden="true">10.</strong> Computer Architecture: Cache, RAM, and Locality</a></li><li class="chapter-item expanded affix "><li class="part-title">Operating System</li><li class="chapter-item expanded "><a href="../../os/refresher/index.html"><strong aria-hidden="true">11.</strong> OS Refresher</a></li><li class="chapter-item expanded "><a href="../../os/numa/index.html"><strong aria-hidden="true">12.</strong> NUMA and Numa Control</a></li><li class="chapter-item expanded "><a href="../../os/scheduler/index.html"><strong aria-hidden="true">13.</strong> Working with the scheduler</a></li><li class="chapter-item expanded affix "><li class="part-title">Java</li><li class="chapter-item expanded "><a href="../../jvm/compile/index.html"><strong aria-hidden="true">14.</strong> Compiling, interpreting, and compiling again</a></li><li class="chapter-item expanded "><a href="../../jvm/jit/index.html"><strong aria-hidden="true">15.</strong> Investigating JIT</a></li><li class="chapter-item expanded "><a href="../../jvm/memory/index.html"><strong aria-hidden="true">16.</strong> Java and Memory</a></li><li class="chapter-item expanded affix "><li class="part-title">Microbenchmarking with JMH</li><li class="chapter-item expanded "><a href="../../micro/micro/index.html" class="active"><strong aria-hidden="true">17.</strong> Microbenchmarking</a></li><li class="chapter-item expanded "><a href="../../micro/jmhIntro/index.html"><strong aria-hidden="true">18.</strong> JMH: An introduction</a></li><li class="chapter-item expanded "><a href="../../micro/pitfalls/index.html"><strong aria-hidden="true">19.</strong> Pitfalls</a></li><li class="chapter-item expanded "><a href="../../micro/design/index.html"><strong aria-hidden="true">20.</strong> Designing good benchmarks</a></li><li class="chapter-item expanded "><a href="../../micro/deps/index.html"><strong aria-hidden="true">21.</strong> Dealing with dependencies</a></li><li class="chapter-item expanded "><a href="../../micro/coreProfilers/index.html"><strong aria-hidden="true">22.</strong> Core Profilers</a></li><li class="chapter-item expanded "><a href="../../micro/async/index.html"><strong aria-hidden="true">23.</strong> Async Profiler</a></li><li class="chapter-item expanded "><a href="../../micro/ci/index.html"><strong aria-hidden="true">24.</strong> Integrating into the CI</a></li><li class="chapter-item expanded affix "><li class="part-title">Performance Design Patterns</li><li class="chapter-item expanded "><a href="../../perfDesign/tools/index.html"><strong aria-hidden="true">25.</strong> Tools and Frameworks</a></li><li class="chapter-item expanded "><a href="../../perfDesign/design/index.html"><strong aria-hidden="true">26.</strong> Design Patterns</a></li><li class="chapter-item expanded "><a href="../../perfDesign/arch/index.html"><strong aria-hidden="true">27.</strong> Architecture Patterns</a></li><li class="chapter-item expanded affix "><li class="part-title">Component level benchmarks</li><li class="chapter-item expanded "><a href="../../comp/design/index.html"><strong aria-hidden="true">28.</strong> Test Design</a></li><li class="chapter-item expanded "><a href="../../comp/tooling/index.html"><strong aria-hidden="true">29.</strong> Available Tooling</a></li><li class="chapter-item expanded "><a href="../../comp/build/index.html"><strong aria-hidden="true">30.</strong> Build Your Own Tooling</a></li><li class="chapter-item expanded "><a href="../../comp/profiling/index.html"><strong aria-hidden="true">31.</strong> Profiling</a></li><li class="chapter-item expanded "><a href="../../comp/instrumentation/index.html"><strong aria-hidden="true">32.</strong> Instrumentation</a></li><li class="chapter-item expanded "><a href="../../comp/model/index.html"><strong aria-hidden="true">33.</strong> Modeling</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Java Performance Lecture Notes</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                        <a href="https://www.buymeacoffee.com/erik.helleren" title="Buy Me A Coffee" aria-label="Buy Me A Coffe">
+                            <i class="fa fa-coffee" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="microbenchmarking"><a class="header" href="#microbenchmarking">Microbenchmarking</a></h1>
+<p>Microbencharking is like a unit test, but for performance.  They run a small experiment on a well defined scope of code in a controlled environment.  But we miss out on a lot of the things that happen in real life that harm performance.  Large things like a context switch, or a blocking network call.  But small things too, like different cache miss behavior. We can even benchmark the wrong thing, focusing on sets of code which don't need to be optimized. </p>
+<p>So, why do it at all?  The key word above is &quot;experiment&quot;.  Microbenchmarks are not here to tell us what needs improvement, or to &quot;prove&quot; performance of the real system.  Where they excel is measuring the impact of a change.  That change could be to input data, or it could be to the code that processes that data.</p>
+<p>This means microbenchmarking is broadly suitable for 2 main use cases.  First is to help us optimize code that we know to be both frequently used and performance sensitive.  Second is to help identify performance regressions.</p>
+<p>Microbenchmarking may also be appropriate when modeling a change in an existing system.  We will cover building performance models in future chapters.</p>
+<h2 id="how-it-works"><a class="header" href="#how-it-works">How it works</a></h2>
+<p>The benchmarking harness typically performs the setup you prescribe and then instruments a call to a method.  The harness then calls that method many times, typically as many times as it can for a period of a few seconds. Depending on the harness and its configuration, an average call time of each invocation is recorded or a histogram is used to get percentiles.</p>
+<h2 id="inputs"><a class="header" href="#inputs">Inputs</a></h2>
+<p>There are 3 main sets of input for a microbenchmark.  First is configuration, or how the code is setup to be benchmarked.  Second is data, which is often the inputs we pass into our code on each invocation of the benchmark code.  The third is context, or what else is happening at the same time.</p>
+<p>Typically, there are 2 options for context: Either nothing is happening on the host when the benchmark is executed or there are N threads all executing that benchmark at the same time.</p>
+<p>A default choice for configuration is to choose a meaningful config for the test.  The other option is to parametrize the config for several different interesting test cases.</p>
+<p>Data can either be static or dynamically generated.  In practice the data should be consistently generated between runs.  That typically means some procedural function that mutates the data across a range and resets.  But it can mean a Random object with a fixed seed used to generate data.  Always clearly define your data and why it is the way it is.  And make sure you understand the impact the data has on your experiment.  The second most common issue with microbenchmarks after misapplying them is poor choices for data.</p>
+<h2 id="component-benchmarks"><a class="header" href="#component-benchmarks">Component benchmarks</a></h2>
+<p>Its quite easy for microbenchmarks to blend into component level benchmarks.  This is not a bad thing, just something to be mindful of.  The larger the scope, the more important it becomes to have data variety in your benchmarks.  This can be accomplished thru having parametrized benchmarks or pusdo-random data.</p>
+<h2 id="peer-review"><a class="header" href="#peer-review">Peer review</a></h2>
+<p>While most of us are use to a code reviews, focused feedback should always be solicited on our microbenchmarks.  Asking someone else familiar with the concept what they think your benchmark is doing and looking for pitflls with it.  They should also review data collected and conclusions.</p>
+<p>This is critical to do before sharing results with someone who isn't familiar with the limitations of micro benchmarking.  Paying special attention for likely assumptions readers may make.</p>
+<p>Lastly, be a friend and peer review others work thoroughly.  They would prefer candid feedback over letting a mistake get through that could cause confusion or production issues.</p>
+<h2 id="service-time"><a class="header" href="#service-time">Service time</a></h2>
+<p>A microbenchmark only measures your applications service time, it can't measure your response time.  This is an intentional design limitation of microbenchmarking tools.  Never claim that a microbenchmark result, or a response time of a system under minimal load is the performance number that clients will care about.</p>
+<h2 id="what-use-use-data-for"><a class="header" href="#what-use-use-data-for">What use use data for</a></h2>
+<p>Microbenchmarks are never to be conflated with real world performance.  They do not tell us how fast we expect to be in prod. So, what do they tell us?</p>
+<p>They give us a measurement without a great unit.  When using sample time our units are &quot;nanoseconds per invocation on this particular machine given the conditions present at the time of the benchmark given the benchmark is pretty optimistic about noise&quot;.  Which isn't super useful in isolation.  Kind of like the origional <a href="https://en.wikipedia.org/wiki/Cubit">cubit</a> (a measure based on the arm length of the measurer).  So, how can we use our time cubit's?</p>
+<p>To put it another way, we don't have a standard to use to measure everything else against.  For the killogram, there is a <a href="https://en.wikipedia.org/wiki/International_Prototype_of_the_Kilogram">prototype</a> by which all scales are calibrated.</p>
+<p>To solve this problem we simply don't use the time.  We use our measurement to compare 2 different unknown quantities and establish a ratio between the two.  This might seem counter intuitive, but by doing it this way, we actually factor out most difference in CPU architecture, which can vary wildly between manufacture and iteration.</p>
+<p>So, when looking at a particular benchmark, what can we measure it against?
+Most frequently, previous runs of itself.  This is useful for regression testing to make sure we didn't get slower.  Its also great for optimization testing to assert we got faster.  Another option is to compare it against similar benchmarks.  Imagine we have some bit of code that operates in 3 modes.  We know how mode 1 behaves in production.  We can use microbenchmarks to model with modes 2 and 3 would look like in production by simply comparing their results against mode 1.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../../jvm/memory/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../../micro/jmhIntro/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                    <hr>
+                    <div>
+                        <p>
+                            &copy; Erik Helleren, 2021.  Built on 2021-06-08 from commit <code class="hljs">d07a9c83</code>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../../jvm/memory/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../../micro/jmhIntro/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="../../mermaid.min.js"></script>
+        
+        <script type="text/javascript" src="../../mermaid-init.js"></script>
+        
+
+        
+
+    </body>
+</html>
