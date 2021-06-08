@@ -1,0 +1,577 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Java Performance Lecture Notes</title>
+        
+        <meta name="robots" content="noindex" />
+        
+        
+
+
+        <!-- Custom HTML head -->
+        <meta name="author" value="Erik Helleren">
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        
+        <link rel="stylesheet" href="css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Introduction</li><li class="chapter-item expanded "><a href="introduction/introduction.html"><strong aria-hidden="true">1.</strong> Introductions</a></li><li class="chapter-item expanded "><a href="introduction/standards.html"><strong aria-hidden="true">2.</strong> Standards</a></li><li class="chapter-item expanded "><a href="introduction/keyTerms.html"><strong aria-hidden="true">3.</strong> Key Terms</a></li><li class="chapter-item expanded affix "><li class="part-title">Theory</li><li class="chapter-item expanded "><a href="theory/queueTheory/index.html"><strong aria-hidden="true">4.</strong> Queue Theory</a></li><li class="chapter-item expanded "><a href="theory/statsPrimer/index.html"><strong aria-hidden="true">5.</strong> Statistics Primer</a></li><li class="chapter-item expanded "><a href="theory/distributionAnalysis/index.html"><strong aria-hidden="true">6.</strong> Distribution analysis</a></li><li class="chapter-item expanded affix "><li class="part-title">Hardware</li><li class="chapter-item expanded "><a href="hardware/highLevel/index.html"><strong aria-hidden="true">7.</strong> Computer Architecture: High Level</a></li><li class="chapter-item expanded "><a href="hardware/cpu.html"><strong aria-hidden="true">8.</strong> Computer Architecture: CPU Design</a></li><li class="chapter-item expanded "><a href="hardware/Cache.html"><strong aria-hidden="true">9.</strong> Computer Architecture: Cache, RAM, and Locality</a></li><li class="chapter-item expanded affix "><li class="part-title">Operating System</li><li class="chapter-item expanded "><a href="os/refresher/index.html"><strong aria-hidden="true">10.</strong> OS Refresher</a></li><li class="chapter-item expanded "><a href="os/numa/index.html"><strong aria-hidden="true">11.</strong> NUMA and Numa Control</a></li><li class="chapter-item expanded "><a href="os/scheduler/index.html"><strong aria-hidden="true">12.</strong> Working with the scheduler</a></li><li class="chapter-item expanded "><a href="os/locks/index.html"><strong aria-hidden="true">13.</strong> The cost of locks</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Java Performance Lecture Notes</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="introductions"><a class="header" href="#introductions">Introductions</a></h1>
+<p>Hi there and welcome to this course on Low Latency Java.  During this course we will be covering the knowledge of how the JVM works, but also covering how to construct good performance experiments and analyze their results.  In order to do that we will also cover computer hardware and the operating system itself in order to have a better understanding of the environment where our software is run.  At the end of this course you will have a core set of tools that prepares you to work on a latency sensitive java project.</p>
+<h2 id="why-not-just-use-c-or-c"><a class="header" href="#why-not-just-use-c-or-c">Why not just use C or C++?</a></h2>
+<p>This is one of the most common questions people ask when first encountering this topic.  The simple answer is you should use the tool most appropriate for the job.  If speed is the only name of the game, C/C++ is a superior choice.  It even gives you the ability to inline assembly for truly crazy performance.  The trade offs of C/C++ has a steeper learning curve, lacks a robust dependency management system, and has a higher risk of memory issues.  All though can be addressed at least in part by hiring great C++ developers.</p>
+<p>So, why do this stuff in Java?  The first reason is risk.  The barriers to crashing the VM are much higher than they are for causing a sigfault in a C process.  It can be done, but java code that has the potential for doing so is often the focus of extra attention.</p>
+<p>A second key reason is that Java may already be a huge part of the tech stack.  The application may already exist in Java and we want to incrementally improve it and make it faster.  Many of the components that our app connects to may also be Java, and the support stack of the company we work for strongly favors Java applications.</p>
+<p>A third reason is talent pool, there are more qualified java software engineers than qualified C++ engineers.</p>
+<h1 id="standards"><a class="header" href="#standards">Standards</a></h1>
+<p>Like most courses, we have outlined a set of standards we want students to be able to meet.  Think of them as learning goals for what you should know and be able to do. </p>
+<p>If you want, as you progress through this course, you can use this as a to track where you feel that you meet the standard and where you feel like you need improvement.</p>
+<p>TODO write more about how to read standards</p>
+<h2 id="theory"><a class="header" href="#theory">Theory</a></h2>
+<ol>
+<li>Explain queue theory as it applies to real life and draw analogies to computer systems.</li>
+<li>Define key terms: Service time, response time, utilization, capacity TODO more terms if needed</li>
+<li>Define the types of tests and explain how they are related: Throughput tests, capacity tests, and response time tests</li>
+<li>Explain how queueing theory can result a system having a reasonable service time, but a terrible response time.</li>
+<li>Explain the differences between measuring these values for response time and service time: Average, throughput (operations per unit of time), percentile distribution.</li>
+<li>Identify if a plot is CDF or PDF, and weigh the pros and cons of each when it comes to analyzing performance data.</li>
+<li>Interpret a CDF and PDF percentile plot of a component's service time by identifying modes, tails, and other analogous behavior.</li>
+</ol>
+<h2 id="hardware"><a class="header" href="#hardware">Hardware</a></h2>
+<ol>
+<li>Define the key physical parts of the computer: CPU cores, Registers, L1/L2 cache, L3 cache, CPU sockets, RAM, Networking</li>
+<li>Explain the pipelining architecture of a modern CPU, and how super-scalar execution allows a single core to do many things at once.</li>
+<li>Describe the approximate timings to fetch data or instructions from registers, L1 cache, L3 cache, and RAM</li>
+<li>Describe how communication occurs between CPU sockets on a multi socket server and identify why that may be expensive.</li>
+<li>Describe the key performance counters kept by the hardware and OS.</li>
+<li>Understand the concept of out of order execution</li>
+<li>Describe the branch predictor's job, how it does that job, and why that optimization can cause performance issues. </li>
+<li>Identify which common operations take multiple CPU cycles to execute.  i.e. Atomics, Division and modulus, etc.</li>
+<li>Describe how data's location in memory can impact performance</li>
+</ol>
+<h2 id="operating-system"><a class="header" href="#operating-system">Operating System</a></h2>
+<ol>
+<li>Understand and explain how the OS schedules execution on a CPU</li>
+<li>Explain what a context switch is to a lay person and why its suboptimal.</li>
+<li>Identify when isolating CPU core's is appropriate.</li>
+<li>Identify when pinning a particular thread to a CPU is appropriate and when its not.</li>
+<li>Define the difference between kernel space and user space.</li>
+<li>Describe different actions that happen in kernel space vs user space.</li>
+<li>Explain why kernel space is not a great place to have to go.</li>
+</ol>
+<h2 id="java"><a class="header" href="#java">Java</a></h2>
+<ol>
+<li>Describe how the JVM compiles class files and what those class files are</li>
+<li>Describe the job of the interpreter and how it does that job</li>
+<li>Describe how Just In Time compiler identifies code to be optimized</li>
+<li>Describe the different compiler levels, and how code can go back to interpreter mode.</li>
+<li>Identify pros and cons of JIT VS statically compiled and optimized code.</li>
+<li>Identify and explain the key ways that JIT can optimize code to perform faster: Inlining, Loop unrolling, Escape analysis.</li>
+<li>Explain why monomorphic and bimorphic dispatch make such a large impact on performance.</li>
+<li>Be able to generate, read and explain compilation logs</li>
+<li>Describe how java allocates memory for stack, heap, and off heap data structures.</li>
+<li>Identify what data is kept on the stack vs what's on the heap.</li>
+<li>Explain the concept of garbage collection and why is great for correctness but not ideal in low latency settings.</li>
+<li>Explain why that, in java, memory locality is rarely achievable with POJO's.</li>
+</ol>
+<h2 id="micro-benchmarking"><a class="header" href="#micro-benchmarking">Micro benchmarking</a></h2>
+<ol>
+<li>Describe why micro benchmarking is so hard.  TODO this needs to be made more concrete.</li>
+<li>Describe why micro benchmarking should not substitute real tests, but they are still an important tool.</li>
+<li>Identify when JMH is an appropriate choice for testing the performance of some code and when its not</li>
+<li>Author valid unit level JMH benchmarks which utilize state objects correctly</li>
+<li>Design meaningful JMH benchmarks for a given context</li>
+<li>Collect, collate, and analyze JMH results to either characterize a units performance</li>
+<li>Attach appropriate built in profilers to a run and understand their tradeoffs: i.e. GC and OTHERS!</li>
+<li>Identify when its appropriate to use async profiler when benchmarking code.</li>
+<li>Attach async profiler to JMH tests properly to generate flame graphs of cycles and allocations</li>
+<li>Analyze frame graphs to identify optimization opportunities.</li>
+</ol>
+<h2 id="deployed-performance-tests"><a class="header" href="#deployed-performance-tests">Deployed performance tests</a></h2>
+<ol>
+<li>Identify what you are trying to measure with a test before running the test.</li>
+<li>Be able to utilize an appropriate framework for your desired experiment.  Know when building a new one is required.</li>
+<li>Identify an appropriate profiler for you experiment.  TODO we should look at ones outside async profiler that are readily available.  </li>
+</ol>
+<h1 id="key-terms"><a class="header" href="#key-terms">Key Terms</a></h1>
+<p><em>Response time</em> is the amount of time it takes for a a client application to get a response for a particular input.</p>
+<p><em>Service time</em> is the amount of time our component actually spends working on a request.  </p>
+<h1 id="queue-theory"><a class="header" href="#queue-theory">Queue theory</a></h1>
+<p>The clients of our systems generally care about our <em>response time</em>, which is the time it takes, from their perspective, for their request to get a response.  Be that a REST request or some message being sent and received via TCP.</p>
+<p>But all our systems all have queues in them somewhere.  At the most basic level, our networking stack has RX and TX buffers that queue both our system's input and outputs regardless of if we are using UDP multicast, REST endpoints, or some fancy async messaging bus like MQ or Kafka.  No matter what, queues invade our system, and with good reason.  They enable our systems to perform efficiently under normal circumstances and handle large bursts of activity with easy.</p>
+<p>But there is a downside, those queues can build up and really hurt our systems <em>response time</em>.  In general, our <em>service time</em> is the only thing we can change in our application, which is the time that we spend actually doing something.</p>
+<h2 id="littles-law"><a class="header" href="#littles-law">Littles Law</a></h2>
+<p><a href="https://en.wikipedia.org/wiki/Little%27s_law">Littles Law</a> is defined as \( \lambda=\frac{L}{W} \) where \(L\) is is the number of people in the system, \(W\) is the average wait time and \(\lambda\) average <em>service time</em>.  This holds for systems at <em>saturation</em> only.</p>
+<p>Imagine you are in line at your coffee shop in the morning.  There is 1 line, 3 baristas, the average coffee takes 1 min, and 15 people in front of you. How long does it take for you to get your coffee?</p>
+<p>So \(\lambda= \frac{1 Minute}{3 Baristas} = 0.33\) and \(L=15\), so we can re-write Little's law as \(W=\lambda * L = 0.33 * 15 = 5 min\). So we have to wait in line for 5 min before we can place our order, this is called the <em>queue time</em>.  We then can be serviced, which takes another 1 min for a total of 6 min. However, if we double the service time to make a coffee drink, we get a queue time\(\lambda= \frac{2 Minute}{3 Baristas} = 0.66\) and \(W=\lambda * L = 0.66 * 15 = 10 min\) and a total response time of 11 min.</p>
+<p>This relationship between service time, line length, and wait time is intuitive.  Yet we seldom consciously apply it to computer systems because the queue is hidden, or we instinctively scale our system out whenever response time spikes or load is high.</p>
+<h2 id="a-little-faster"><a class="header" href="#a-little-faster">A Little Faster</a></h2>
+<p>Little's law lets us easily understand and estimate our wait time in a system with a single queue and multiple workers.  This is basically our standard web server!  A web server has many threads (baristas) working to service requests (customers) in the order they came in as quickly as they can.</p>
+<p>Most of us speed up our application by scaling them up by <em>vertical scaling</em> by hiring more baristas and out by <em>horizontal scaling</em> and building more stores.  And this is a valid strategy, but what if instead we focused on reducing the time it takes to make a coffee drink?</p>
+<p>Lets first consider adding a barista to our equation.  If we have \(\lambda= \frac{1 Minute}{4 Baristas} = 0.25\) that gives us a \((1-\frac{0.25}{0.33}) = 25 \% \) speed up.  Thats great, and it drops our wait time down from 5 min to (W=\lambda * L = 0.25 * 15 = 3.75 min\).  But what if instead, we just made it faster and easier to make a coffee.  How much faster would we need the coffee making process to be?  Well, lets solve for t: \(\lambda= 0.25 = \frac{t}{3 Baristas}\), we get \(c= 3 * 0.25 = 0.75 Minutes\).  So, if we can save an average of 15 seconds in the coffee making process per coffee, we can realize the same benefit as adding a barista! </p>
+<h2 id="the-leaky-bucket"><a class="header" href="#the-leaky-bucket">The Leaky Bucket</a></h2>
+<p>So we have talked about the working side of the queue, but we haven't talked much about our clients behavior.  Little's law formally defines \(L\) as the long term average number of people queued in the system.  But this is rarely what we are concerned with, we care most about response times when we get spikes in activity.</p>
+<p>Lets imagine a simple bucket with a hole drilled in the bottom.  Water in the bucket represents queue of customer requests and we will use this as \(L\) gallons. The water coming out of the bucket is the requests that we successfully respond to and, for the sake of this, we will assume is the constant \(\lambda\) in gpm.  And lastly, the flow rate into the system is \(I\) in gpm.  The size of the hole in the bottom is inversely proportional to our response time. Lets say for this example our flow rate is \(\lambda = 1\) gpm</p>
+<p>TODO Empty bucket with a hole image</p>
+<p>We start our application up and our bucket is empty.  When our bucket is empty, \(L=0 g\), water flows right through and our <em>queue time</em> is \(W=0\).  So long as the flow rate into the bucket never goes above the flow rate out of the bucket, \(I&lt;\lambda\) queue time remains unchanged.</p>
+<p>TODO Bucket with water flowing in and out</p>
+<p>But as soon as the flow into our system even slightly goes above our flow out of the system where \(I&gt;\lambda\), our queue builds up at a rate of \(I-\lambda\).  Lets say, for 10 min, \(I=1.3\) gpm, then our queue depth would be \(L= (1.3-1)gpm * 10 min = 3 l\)</p>
+<p>TODO Bucket filling with water</p>
+<p>This is bad because, the water coming into the system now has a queue time of 3 min given Little's law \(W=\frac{L}{\lambda} = \frac{3 l}{1 gpm} = 3\).  In order to solve for what value of \(\lambda\) we need to have to recover, we first have to decide on a <em>recovery time</em> \(R\) which is the time it takes to clear the queue.</p>
+<p>Lets say you want to recover in 5 min from an event like this.  We define the drain rate as \(\lambda-I\), which is just the inverse of the fill rate from before.  So we need to find \(I\) such that \(R * (\lambda-I) = W \).</p>
+<p>\(5 min * (1 gpm - I) = 3 G \\ 1 gpm - I = \frac{3}{5} gpm = 0.6 GPM \\ -I = 0.6 - 1 GPM = -0.4 GPM \\ I=0.4 GPM \)</p>
+<p>After all that, we find that if we want to recover within 5 min, our average input needs be less than half what our processing capacity is.</p>
+<p>This concept is one of the most often casually ignored ideas behind queue theory.  It often manifests itself when asking a question like &quot;What will the recover time be if things get all queued up?&quot;.  The simple answer is that we can can't know unless we put constraints on our clients (which is rarely possible).  If our system normally is at or very near capacity all the time, there is no opportunity to make up for momentary lapses in performance.</p>
+<h2 id="little-problems"><a class="header" href="#little-problems">Little problems</a></h2>
+<p>But wait! Little's law represents a very simple system that does not represent most real world systems.  Even in this simple example, we can imagine some individuals ordering very complicated beverages that take much longer to prepare than others.  It also doesn't take into account fluctuations in arrival rate.  Imagine the Starbucks in Union Station just as a huge train of semi-awake commuters unloads, stumbling over their extremely complex orders.</p>
+<p>Under these situations, Little's law breaks down.  And sadly, there isn't a great math equation to handle these cases.  We have two options to handle this.  The first is to build a robust, probabilistic model of our coffee shop and then run a <a href="https://www.investopedia.com/terms/m/montecarlosimulation.asp#:%7E:text=A%20Monte%20Carlo%20simulation%20is,in%20prediction%20and%20forecasting%20models">Monte Carlo simulation</a>.  We will cover this more in our <a href="theory/queueTheory/./modeling.html">modeling chapter</a>.</p>
+<p>The second option is to run carefully constructed experiment on a real system.  In our metaphor, that means having a bunch of people with known orders show up at at known relative times.  We will cover this in 2 different contexts, first in our <a href="theory/queueTheory/./jmh.html">JMH</a> chapter and then again when we look at our application as a whole in our <a href="theory/queueTheory/./component.html">Component</a> chapter. </p>
+<h2 id="final-thoughts"><a class="header" href="#final-thoughts">Final thoughts</a></h2>
+<p>Little's law is a critical first step in understanding the behavior of computer systems and the relationship between service time, response time, and request volume.  While is difficult to say exactly how real world systems behave with a simple math equation, we can use this law to run theoretical experiments quickly.  We will use these concepts later to implement models of our system to see how making an improvement on one part of a component impacts the response time of the whole system.  </p>
+<h1 id="a-review-of-statistics"><a class="header" href="#a-review-of-statistics">A review of statistics</a></h1>
+<p>One of the most common statistics thrown around the table in most capacity planning meeting is <em>Transactions Per Second</em> or TPS.  It is implied that TPS is an average throughput of the system at capacity.  There is one problem with that: <a href="theory/statsPrimer/../queueTheory/index.html#littles-law">Little's law</a> says that being at capacity is a dangerous place to be for response time.  Most of these tests intentionally fill up the work queue of their victim application and track response time as an afterthought. </p>
+<p>So lets look how we can use statistics to measure data in a way that puts latency first.</p>
+<h2 id="standard-summary-statistics"><a class="header" href="#standard-summary-statistics">Standard summary statistics</a></h2>
+<p>The standard set of summary statistics is defined as the number of data, the minimum, maximum, mean or average, and the Standard Deviation.  For 2D graphs we can also calculate the linear regression line, as well as the std error on that regression.</p>
+<p>We are often trained to believe that this is adequate to describe most things, but it actually rarely is.  A perfect counter example is <a href="https://en.wikipedia.org/wiki/Anscombe%27s_quartet">Anscombe's quartet</a> as seen below,  All the 4 graphs have the same set of summary stats.</p>
+<p><img src="theory/statsPrimer/Anscombe&#x27;s_quartet.svg.png" alt="Anscombes Quartet showing 4 very different looking graphs" /></p>
+<p>When we look at these 4 sets of data, we can see very different patterns, but, again, all have the same average, standard deviation, linear regression, regression error, and more.  While this example is extreme, it does underscore the danger of relying on just summary stats.  We really need a better way to view our data.</p>
+<h2 id="a-better-approach-with-histograms"><a class="header" href="#a-better-approach-with-histograms">A better approach with histograms</a></h2>
+<p>Humans are very visual creatures, and graphs are an amazing tool for visualizing a huge amount of data very quickly.  I have seen visualizations whipped up in a few min on R, the open source statistical analysis tool chain, that compress unwieldy data into meaningful visualizations.  Numpy can do similar magic.  While using both those tools are beyond the scope of this course, I do want us to be familiar with a few key ideas and tools when it comes to analyzing our response time.</p>
+<p>Most of these visualizations rely on having a timing for every event or a sample of events to be recorded individually.  While exporting this raw data from within the application covering internal service times and queue is ideal, the cost of doing so is often quite high.  Packet Capture at both the OS and networking level can help shift the impact out of your application, but the trade off is granularity.</p>
+<p>So, lets assume we have 2 values for each message our app gets: the arrival time \(a\) into the system, and the response time \(r\) was fully sent.  Using this data, we can compute a service time for each event simply by \(r-a=s\).</p>
+<p>Now that we have S, lets make a histogram of that data.</p>
+<p><img src="theory/statsPrimer/Histogram.png" alt="Histogram of some fake performance data" /></p>
+<p>Here is the first problem we run into with visualizing performance data, high tails.  So lets re-adjust our buckets to be logarithmic.</p>
+<p><img src="theory/statsPrimer/./Histogram-logBuckets.png" alt="Histogram of some fake performance data with log scaled buckets" /></p>
+<p>Now thats better.  But we still barely see our tails.  This often happens with perf data, and it may be helpful to log scale our X axis as well.  Be careful to ensure that all values are non-0 before doing this.</p>
+<p><img src="theory/statsPrimer/Histogram-logAxis.png" alt="Histogram of some fake performance data with log scaled buckets and a log scaled Y axis" /></p>
+<p>Sometimes, log scaling the y axis may distort our view of the data, so I recommend carefully inspecting both when looking at data to make sure you aren't lead astray</p>
+<p><img src="theory/statsPrimer/histogram%20CDF.png" alt="A CDF plot of our fake performance data" /></p>
+<p>The last visualization we want to talk about is a Cumulative distribution plot.  This is often what is used when visualizing performance data as well, and the function is used in our modeling simulations as well.  A view like this is often seen in performance reports for various applications.</p>
+<p>The way to view the CDF is that for any value on the X axis, the value of the Y is the probability of a randomly selected value being at or below that X value.  By adjusting the bucket granularity and the scaling of the axis we can easily have a CDF show the performance curve for both typical cases as well as at our tails.</p>
+<blockquote>
+<p>A note about these graphs: They are made in excel using made up data.  I highly recommend using numpy or R to produce these graphics.  Both are able to produce professional looking graphs quite easily, and ones with much better granularity than I was able to make up for data series.</p>
+</blockquote>
+<h2 id="percentiles"><a class="header" href="#percentiles">Percentiles</a></h2>
+<p>Percentiles are also a great tool for quickly analyzing the tail of our response time graph.  The percentile \(p\) of series \(a\) is defined as the first number for which \(p\)% of the numbers in \(a\) are less than or equal to.  Most of us are familiar with the Median, which is the 50%'ile.</p>
+<p>When looking at the tail, we typically like to look at these percentiles: 90, 95, 98, 99, 99.9.  Depending on the volume of the data in the data set, we may also look at the 99.99.  We rarely judge an applications performance by its maximum, or the 100%'ile.</p>
+<p>So, what do these numbers tell us?  Well, the 99%'ile tells us that 99% of messages were processed faster than that value, while 1% where processed slower.  When looking at service time, having a spike is to be expected where the 99.99%'ile is much higher than the 50%'ile.  We will spend a lot of this class covering why that happens and what to do about it. </p>
+<h2 id="response-time-over-time"><a class="header" href="#response-time-over-time">Response time over time</a></h2>
+<p>Our systems often have transient load and variable interactions by customers.  Displaying a time series of our response time distribution can be key in identifying not only surprises in our customers activity, but also our systems.</p>
+<p>Let me tell you a story.  At a company I worked for, one of our latency critical systems had a very weird behavior. We had super detailed response time data over the course of the day, and we notices that there were 2 &quot;modes&quot; of latency, not explained by queueing when looking at the CDF.  We were stumped for days. </p>
+<p>TODO graph </p>
+<p>Then someone had the bright idea of plotting that data over time and we immediately noticed the weird behavior.  Our app was going to some sort of evil mode for a period of many seconds at a time, and then coming out of that mode.  In evil mode our service time increased significantly.</p>
+<p>TODO graph</p>
+<p>That time series view ultimately helped us to isolate the problem.  2 takeaways from this one: </p>
+<ol>
+<li>Capture the finest data you can.  You can try capturing every event or a sample of events and export telemetry data on those events to another system for analysis.  Or, you can use time boxed histograms to log every few seconds and your favorite logging tool can pease it together for you.</li>
+<li>Don't be afraid to try looking at your data in a different way.  CDF vs PDF, individual events vs a histogram, large time windowing vs small. </li>
+</ol>
+<h2 id="hdr-histogram"><a class="header" href="#hdr-histogram">HDR Histogram</a></h2>
+<p><a href="http://hdrhistogram.org/">High Dynamic Range Histogram</a> is a wonderful java tool that allows us to track values in a dynamically sized histogram.  The buckets are sized to preserve a fixed number of digits of precision, which is great for performance measurements.  The larger the values, the larger the bucket. The library outputs this data typically as a table of percentiles, but the data can also be serialized out of the system.  It even provides lock free abstractions to record values from many threads and periodically dump the results. </p>
+<p><img src="theory/statsPrimer/HdrHistogram.png" alt="A sample of a plotted HDR Histogram output" /></p>
+<p>The above example was plotted using data produced from HDR histogram and a tool called <a href="https://github.com/HdrHistogram/HistogramLogAnalyzer">HistogramLogAnalyzer</a>.  It shows the applications tails, and, unfortunately, conflates latency for response time.</p>
+<h1 id="distribution-analysis"><a class="header" href="#distribution-analysis">Distribution analysis</a></h1>
+<p>Here are some sketches of some common patters we sometimes sometimes see.  First is a typical latency distribution that we see.  Here we see a single modal distribution with a relatively tight majority of messages.  After that there are a few events that have a much higher.  These higher percentiles typically reflect both garbage collections and system jitter, although for some workloads they may reflect extremely heavy.</p>
+<p><img src="theory/distributionAnalysis/monomodal.png" alt="Standard latency distribution" /></p>
+<p>Next we have a bimodal distribution showing that we have 2 distinct modes of operations.  This could reflect the applications workload itself, but could also reflect a variety of strange behavior on the operating system or hardware.</p>
+<p><img src="theory/distributionAnalysis/bimodal.png" alt="bimodal" /></p>
+<h2 id="time-series-data"><a class="header" href="#time-series-data">Time series data</a></h2>
+<p>TODO add some basic time series data.  </p>
+<h1 id="computer-architecture-high-level"><a class="header" href="#computer-architecture-high-level">Computer Architecture: High Level</a></h1>
+<p>For this high level diagram, we will be focusing on both single socket and dual socket servers.  A Socket is a spot where a single CPU chip can fit into the motherboard.  So a single socket motherboard has room for 1 CPU chip and a dual socket motherboard has room for 2 CPU chips.  All enterprise CPU's natively support such configurations.</p>
+<p><img src="hardware/highLevel/cpuChip.jpeg" alt="A CPU chip" /></p>
+<h2 id="single-socket-design"><a class="header" href="#single-socket-design">Single socket design</a></h2>
+<p>So lets start off with a physical image of a single socket motherboard before we talk about the inner workings of it.</p>
+<p><img src="hardware/highLevel/singleSocketMotherboardAnnotated.jpg" alt="A single socket MD" />)</p>
+<p>We can physically see 5 main components:</p>
+<ul>
+<li>In the red box, we can see the CPU socket.</li>
+<li>In the blue box we  can see the RAM slots</li>
+<li>In the green box we can see the motherboard chipset</li>
+<li>In Magenta we can see one of the boards PCIe 3.0 ports.</li>
+<li>On the left edge of the motherboard we can see the IO panel with all our USB and built in networking ports.</li>
+</ul>
+<p>But lets break this down a little more to see how the various components in the computer are actually connected.</p>
+<pre class="mermaid">graph LR;
+CPU--&gt;MemoryController
+MemoryController--&gt;RAM;
+CPU--&gt;MbChipset;
+CPU--&gt;PCIe3.0;
+MbChipset--&gt;PCIe2.0;
+MbChipset--&gt;OnboardNetworking;
+MbChipset--&gt;USB;
+MbChipset--&gt;SATA/IDE/SAS;
+MbChipset--&gt;PCI;
+</pre>
+<h3 id="the-cpu"><a class="header" href="#the-cpu">The CPU</a></h3>
+<p>The CPU has a lot more detail that we can see here, but its at the heart of the computer.  Its where all our code runs, and it also has to handle the hardware and other software thats running on the machine.  Things like communicating with your graphics card, connecting a TCP connection, and writing data to disk.</p>
+<h3 id="memory-controller"><a class="header" href="#memory-controller">Memory controller</a></h3>
+<p>Almost all recent CPU architectures embed the Memory Controller into the same chip as the rest of the CPU.  This was to minimize the amount of time it took to access ram.  So this means that the CPU's chip is almost directly connected to the ram on the motherboard.  Commands to the ram need to fit thru a bus which issues commands to the ram (Writing or requesting data) and receive data back on the data bus.</p>
+<h3 id="ram"><a class="header" href="#ram">RAM</a></h3>
+<p>Random Access Memory is where our application is typically loaded too.  RAM is much slower than the CPU and can easily become the bottleneck in many systems if its not managed well.</p>
+<h3 id="pcie-30"><a class="header" href="#pcie-30">PCIe 3.0</a></h3>
+<p>PCIe 3.0 is a direct connection between the CPU and an expansion card.  Expansion cards are used to specialize a machine more easily.  Some example cards are specialty network adapters, graphics cards, FPGA's, storage controllers, and crazy fast SSD storage.  Cards have a minimum supported PCIe version, but PCIe is backwards compatible, so a PCIe 2.0 card can be plugged into a PCIe 3.0 port.</p>
+<p>The key advantage of PCIe 3.0+ over previous generations of PCIe and PCI is that PCIe 3.0 has that direct connection to the CPU.  This reduces the cost of interacting with the cards, and can result in lower latencies and greater throughput.</p>
+<h3 id="motherboard-chipset"><a class="header" href="#motherboard-chipset">Motherboard Chipset</a></h3>
+<p>The motherboard isn't just a huge PCB.  It has its own bit of silicon called a Chipset.  Older computers had 2 distinct chips, a northbridge for PCIe and memory access and a southbridge for everything else.  Today, most computers have a single chip for the motherboards functionality.</p>
+<p>The chipset is responsible for a lot of stuff as we can see in the diagram.  Basically everything that the CPU doesn't directly handle itself: USB ports, SATA/IDE/SAS ports, PCI, PCIe 2.x, interacting with the motherboards BIOS, and interacting with the physical sensors on the motherboard like voltage meters, LED's, and temperature probes.</p>
+<p>The chip set does not DO anything with this data by itself (after the machine is up and running), it simply provides an interface for the CPU to issue commands to and read data from.</p>
+<h2 id="dual-socket-design"><a class="header" href="#dual-socket-design">Dual socket design</a></h2>
+<p>At the highest level of abstraction, a dual socket and a single socket machine are the same.  They allow an application to access all the resources shared between the CPU's.</p>
+<p>But as we dig a little deeperThere are some key things to understand about dual socket MB's that most people take for granted that can impact an application's performance in subtle but significant ways.</p>
+<p><img src="hardware/highLevel/dualSocketMb.jpeg" alt="Dual socket motherboard" /></p>
+<p>The first thing I notice about this pictures is that both the CPU sockets have their own hunks of ram next to each other.  And thats for a reason: Each CPU chip has its own dedicated RAM and PCIe 3.0 ports.  Typicaly the ram around a socket is alligned to that socket.  For the PCIe 3.0 port mappings, the motherboards manual should have all the details.</p>
+<p>So, why does that matter?  Lets look a level deeper.</p>
+<pre class="mermaid">graph RL;
+CPU0---RAM0;
+CPU0---PCIe0_3.0;
+CPU1---|QPI|CPU0;
+RAM1---CPU1;
+PCIe1_3.0---CPU1;
+MbChipset---CPU0;
+CPU1---MbChipset;
+</pre>
+<h3 id="non-uniform-memory-access"><a class="header" href="#non-uniform-memory-access">Non Uniform Memory Access</a></h3>
+<p>As the above diagram makes clear, our 2 socket machine is really like 2 machines with a special interconnect.  So what does that mean?  While NUMA specificaly calls our memory, its now includes PCIe3 slots as well!.</p>
+<p>At the heart of it <a href="https://en.wikipedia.org/wiki/Non-uniform_memory_access">NUMA</a> means that a CPU can access its RAM and PCIe3 cards faster than another CPU's RAM and PCIe3 cards.  It's not just faster but more efficient as well.  Lets understand why.</p>
+<p>Lets say CPU0 in the above diagram wants to access something in its own ram.  It contact's its own memory controller (on die), and issues a command to the ram to fetch a particular address.  The ram is directly connected to the memory controller so its able to respond quite quickly with the requested data.  Lets say all this takes 400 nanoseconds.</p>
+<p>Now lets compare that to CPU0 trying to access RAM1.  It's memory controler is no help since it doesn't have access to RAM1.  Instead the CPU needs to build a message and send it over an interconnect between CPU0 and CPU1.  Intel branded their version of this interconnect as <a href="https://en.wikipedia.org/wiki/Intel_QuickPath_Interconnect">QPI</a> and later <a href="https://en.wikipedia.org/wiki/Intel_Ultra_Path_Interconnect">UPI</a>.  This interconnect does a lot, its not just there for RAM access.  Its responsible for coordinating between CPU's for anything that is being concurrently modified in chance, communication with PCIe3 cards belonging to another CPU, etc.  So its very busy.  We might even have to queue our request behind other requests.  Either way this takes time.</p>
+<p>That request gets sent to CPU1 where it needs to be handled by a CPU core and serviced memory controller to access RAM1, and return the result back over QPI to CPU0 in a new message (which may be queued).  Then CPU0 needs to receive that data and put it into its cache.  This makes a cross socket memory access strictly more expensive than a local memory access in all but the most memory bandwidth constrained situations.</p>
+<p>Similar communication needs to occur for commands to and data from a PCIe 3.0 card.  While the CPU is quite fast at executing this communication, and the bus has a massive amount of throughput, this is still extra work and extra time.</p>
+<h1 id="computer-architecture-cpu-design"><a class="header" href="#computer-architecture-cpu-design">Computer Architecture: CPU Design</a></h1>
+<h1 id="computer-architecture-cache-ram-and-locality"><a class="header" href="#computer-architecture-cache-ram-and-locality">Computer Architecture: Cache, RAM, and Locality</a></h1>
+<p>Data locality is defined as having related data close together in ram.  As we will see, having data locality can have huge performance implications.</p>
+<h2 id="ram-1"><a class="header" href="#ram-1">RAM</a></h2>
+<p>Random Access Memory is slow but large.  When compared the caches, accessing main memory takes orders of magnitude longer. Often measured in 100's of nanos.  Modern systems rely on cacne efficiency in order to keep the CPU fed with instructions and data.</p>
+<h2 id="cpu-cache"><a class="header" href="#cpu-cache">CPU Cache</a></h2>
+<p>The CPU cache is higher fast memory for storing data and instructions very close to the CPU.<sup class="footnote-reference"><a href="#1">1</a></sup>  The CPU has hardware for checking the cache before going to RAM when it needs new instructions or data.</p>
+<p>Most modern processors have 3 levels of cache, conveniently named L1, L2, and L3.  Each increase in level increases the size and the capacity typically.  Some CPU designs even split L1 into 2 seperate caches, one for data and another for instructions.</p>
+<p>Recent Intel architectures like Kaby Lake have 32 kb of L1 data cache, 32kb of L1 data cache, and 256kb of L2 cache per physical core.  L3 cache is typically shared at the CPU level and varies significantly depending on which CPU you are purchasing but it typically ranges from 12 to 40MB.</p>
+<h3 id="cache-line"><a class="header" href="#cache-line">Cache Line</a></h3>
+<p>Data is transferred from ram to the cache based on cache lines.  Most processors have a cache line size of 64 bytes.  This means that the memory controller always asks for 64 continuous bytes.  So even ify ou are just using 1 int on that line, you still have to load the whole thing and that eats up your cache.</p>
+<p>But more than that, cache lines are aligned with physical memory.  This tends to only make a difference when a primitive type straddles the cache line boundary.  This can make a measurable difference when parsing certain types binary messages like SBE and FixBinary.</p>
+<h3 id="cache-consistence-and-writing"><a class="header" href="#cache-consistence-and-writing">Cache consistence and writing</a></h3>
+<p>When we have the same data in multiple locations, we introduce an issue when it comes to writing data back to those caches.  CPU's have to not only know when to write back the data to RAM, but also share that new sate between CPU cores, if strongly consistent operations are being performed like atomic modifications.  That can get expensive as all instancees of that cache line need to checked and locked before the modification can take place.</p>
+<h3 id="speculation"><a class="header" href="#speculation">Speculation</a></h3>
+<p>Modern processors speculate when it comes to their cache content.  What that means is that the CPU has dedicated hardware, typically shared between the core and the memory controller to pre-fetch data that the CPU thinks it may need in the future from ram.  So that way by the time you need it,  its already there.</p>
+<p>Speculation works best if your memory access is predictable and not based on pointers.  This means for java, that the only way to take full advantage of speculation is to be accessing primitive arrays.</p>
+<h2 id="translation-lookaside-buffer"><a class="header" href="#translation-lookaside-buffer">Translation Lookaside Buffer</a></h2>
+<p>Modern processors are designed to work with virtual memory efficiently, and they contain a TLB inside of the memory management unit. It is a cache which stores recent translations of virtual memory address to physical memory addresses.<sup class="footnote-reference"><a href="#2">2</a></sup> Virtual addresses have a predefined set of bits which represent a page number(A page is a block of virtual memory), and the rest represent an offset into that page.  Modern processors have multiple TLB cahces, typically 1 per core split into multiple segments based on page size.</p>
+<p>Nehalem processors for example have 4 L1 TLB's.<sup class="footnote-reference"><a href="#3">3</a></sup>  2 Data TLB's with 64 entries for 4 kb pages and 32 entries for 2/4 mb pages and 2 instruction TLB's with 128 entries for 4kb pages and 14 fo 2/4 mb pages.  Finally they have an L2 unified 512 entry TLB for 4kb pages. Various different intel and AMD architectures have adjusted these various sizes between generations as they attempt ot find the right tradeoff between TLB misses for generic workloads and transistor counts.</p>
+<p>Modern processors also do hardware page walks to find the right page of memory if there was a TLB miss.  Ultimately, since the page table is in RAM, it may also be cached, so the CPU checks caches first before accessing ram.</p>
+<pre class="mermaid">graph TD;
+start[Need to load data from ram] --&gt; checkTbl[CPU checks TLB];
+checkTbl --&gt; tblHas{Does page exist in ram};
+tblHas --&gt;|Yes| physical[CPU Generates physical Address];
+tblHas --&gt;|No| accessTable[Access Page Table&lt;br&gt;in cache or RAM];
+accessTable --&gt; inRam{Page is in main memory};
+inRam--&gt;|Yes| updateTlb[Update TLB];
+updateTlb--&gt;physical;
+%% Source: https://en.wikipedia.org/wiki/Translation_lookaside_buffer 
+</pre>
+<p>The above assumes that the OS has not page swapped anything in ram to disk, if that were to happen, the OS gets a page fault and must load the memory segment from the disk.</p>
+<p>So, why do we care about this?  Lets first remember to context of our TLB it is required every time we try to access anything in memory, even if that item is already in cache!  The cache keeps things based on physical addresses.  So, this can cause our normal code to have to take a break and go to main memory (in the worst case) in order to access or modify a value we already have in cache.</p>
+<p>Now lets imagine we have a full cache miss and a full TLB miss?  Now we have to do 2 full RAM reads, one to access the page table to figure out which ram we need to read, and a second to actually get the data.</p>
+<p>But we have some good news: CPU designers know about this limitation and have invested heavily in mitigating it.  Using speculation, the CPU can try to keep the TLP populated with the relevant entires which can reduce the risk of having a TLB miss.  It's also smart enough to use the other caches like L3 cache to store parts of the page table on the CPU to reduce the cost of a miss.</p>
+<h3 id="tlb-thrashing"><a class="header" href="#tlb-thrashing">TLB Thrashing</a></h3>
+<p>At the same time, having a misconfigured application, or an application that is very inefficient with its ram usage can suffer from TLB thrashing.  Thrashing is defined as overuse of virtual memory resources causing very high rates of TLB misses.  This happens when the set of active pages in use by a CPU excedes the ability of the TLB to store all those pages.  Here, active pages specifically means pages which are used very frequently.</p>
+<p>An example of a data structure which might cause serious TLB Thrashing, on a system configured for G1 garbage collection:</p>
+<pre><code class="language-java">public class Example{
+    Object[] a = new Object[32];
+}
+LinkedList&lt;Example&gt; aLongLinkedList = getListOfExamples();
+for(Example e: aLongLinkedList){
+    for(Object o: e.a){
+        o.hashCode();
+    }
+}
+</code></pre>
+<p>So why is this so bad?  Well, in java, there is no such thing as locality for java objects.  This means that each node in our linked list may be in 1 page, which points to our example object on another page, which has an array pointer which may point to another page.  That array can then point to 32 objects each on another page.  So to visit just 1 Example object above, we could hit as many as 35 different pages, and as few as just 1.  It depends on both how the OS allocated the JVM's ram, and how the JVM has compacted these objects.</p>
+<p>Its critical that the TLB miss can rely on L1, L2 and L3 cache to satisfy missing when thrashing is happening to minimize its cost per instance.</p>
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p><a href="https://en.wikipedia.org/wiki/CPU_cache">Wikipedia: CPU Cache</a></p>
+</div>
+<div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
+<p><a href="https://en.wikipedia.org/wiki/Translation_lookaside_buffer">Wikipedia: Translation Lookaside buffer</a></p>
+</div>
+<div class="footnote-definition" id="3"><sup class="footnote-definition-label">3</sup>
+<p><a href="https://www.realworldtech.com/nehalem/8/">Inside Nehalem: TLBs, Page Talbes and Synchronization</a></p>
+</div>
+<h1 id="os-refresher"><a class="header" href="#os-refresher">OS Refresher</a></h1>
+<p>Most standard definitions of the Operating system put it between the hardware and our applications.  It sits as an abstraction and handles setting up and maintaining an environment suitable for running our applications  But in reality, the line between app, OS, and hardware is a little blurry.</p>
+<p>In general, I am going to refer to standard behavior here in the linux kernel, specifically Red Hat Enterprise Linux.  I will be focusing on this general purpose OS rather than a specialty OS simply because its one of the most common OS's. </p>
+<h2 id="scheduler"><a class="header" href="#scheduler">Scheduler</a></h2>
+<p>One of the key responsibilities of the OS it to ensure that all our applications play together nicely.  Our systems have finite memory, storage, and networking bandwidth.  But the most contented most frequently is compute capacity.  The scheduler is responsible for managing the compute resources (CPU cores) and making sure they all have something to do.  At the same time its responsible for ensuring that no process monopolizes the CPU to the detriment of other processes.</p>
+<p>The schedule maintains a work queue of threads which are ready to do something, and provides them typically with a window of time to do their stuff.  If the process is running at the end of its alloted time, the OS preempt the process by performing a context switch, stopping that thread and putting it at the back of the queue.</p>
+<p>We go into more detail about the schedule in the chapter titled <a href="os/refresher/../../os/scheduler/readme.html">Working with the scheduler</a></p>
+<h2 id="context-switchs"><a class="header" href="#context-switchs">Context switch's</a></h2>
+<p>A context switch takes a running thread and saves its state to ram so it can be paused and resumed later.   This happens in kernel mode for most unix variants, which first requires the CPU to shift modes.  Both of these operations combine to take a few microseconds. </p>
+<p>This is especially pertinent for interrupts, as all interrupt handling requires a context switch.</p>
+<h2 id="dynamic-allocation-and-virtual-memory"><a class="header" href="#dynamic-allocation-and-virtual-memory">Dynamic Allocation and Virtual Memory</a></h2>
+<p>The OS is responsible for managing the computer's RAM, and providing it to various processes when they ask for it via allocation.  Most allocators in modern OS's are dynamic allocators on virtual memory.  Dynamic allocators break the physical into blocks and those blocks are provided to the application as allocations occur.  Virtual memory means that the application does not know the true hardware address of the ram that its accessing, instead there is a level of indirection the OS maintains to provide a unique virtual memory space for each process.</p>
+<p>Fragmentation is the enemy here, where our memory in use gets diluted with large chunks of unused space.  If any bit of a dynamic block has yet to be freed by a process, the OS can't do anything with it. C/C++ can not trivially compact their footprint, so its possible for an otherwise correct C application to run out of memory due to fragmentation.</p>
+<p>Here are some emergent properties of dynamic virtual memory:</p>
+<ul>
+<li>Dynamic blocks that are unused can be returned to the pool and provided to other processes.  Smaller blocks can lead to better efficiency</li>
+<li>Buddy blocks, a type of dynamic allocator which has many pools of blocks based on size, can reduce the risk fragmentation</li>
+<li>The OS can swap out blocks to disk backed storage, often called paging or swapping. </li>
+<li>Each application has its own virtual memory space.</li>
+</ul>
+<h2 id="kernel-mode"><a class="header" href="#kernel-mode">Kernel mode</a></h2>
+<p>The OS creates a clear line between user mode and kernel mode.  Kernel mode is used by the OS and most device drivers in order to work with the hardware.  Kernel mode has elevated privileges down to the hardware level, which is why there are so few things that run in kernel mode.  User mode is where our applications run.</p>
+<p>Memory is strictly broken down into kernel space which is protected from modification by user applications and user space, where our application runs.  Some operations, like turning off the computer, must come form kernel space.  With that said, OS's provide API's for applications to call into kernel space to perform various actions.</p>
+<p>Kernel mode tasks are also responsible for file IO, network IO, scheduling, memory management, etc.  There are many API methods called <em>system calls</em> which call into kernel mode code.</p>
+<p>Kernel mode is not free.  In order to call a kernel mode method, the CPU core needs to perform a full context switch into the OS with kernel mode enabled, perform the task, and then context switch back.  This is an expensive process, and is one of the reasons why we try to limit system calls in the critical path.</p>
+<h2 id="interrupts"><a class="header" href="#interrupts">Interrupts</a></h2>
+<p>An interrupt is just a signal from the hardware that the software needs to do something, and the OS is the software that is the first thing to respond to those interrupts. Interrupts are handled in kernel mode.</p>
+<p>One of the things about interrupts thats key to understand is that they preempt the application code running on a core when they are received.  This causes a context switch and a latency spike as the application is either migrated to another core, or, if the process is pinned, the OS might just have to wait for the interrupt to complete.  The good news is that most interrupts are extremely short, and we can tell the OS to prefer handling interrupts on certain cores.</p>
+<p>Networking and most forms of IO (Disk, keyboard) are interrupt driven as those devices communicate back to the application code.</p>
+<h1 id="numa-and-numa-control"><a class="header" href="#numa-and-numa-control">NUMA and Numa Control</a></h1>
+<p>As we touched on in our first <a href="os/numa/../../hardware/highLevel/readme.html">hardware chapter</a>, multi socket machines have distinct barriers between the CPU's, each having their own RAM and PCIe3+ slots.  All communication between CPU's has to go thru a special bus, but luckily the OS gives us a tool to avoid that all together and its call <code>numactl</code> or &quot;numa control&quot;.  It lets us tell the OS where to run a process's threads and where it should allocate its RAM usage.</p>
+<h2 id="numa-control"><a class="header" href="#numa-control">NUMA Control</a></h2>
+<p>Luckily, linux operating systems give us an ability to put a fence around our processes to force their thread and or memory allocations to be on a particular socket.  This utility is called <code>numactl</code>.  Its very easy to use, all you need to do is prefix your normal startup script/command with <code>numactl &lt;arguments for numa ctl&gt; &lt;your application start&gt;</code>.  The restrictions that numactl places on a process are inherited by all of is children as well.</p>
+<p>By default, numa controls are not enabled for a process so the OS will non-deterministically allocate to RAM and schedule your processes thread's.</p>
+<h1 id="working-with-the-scheduler"><a class="header" href="#working-with-the-scheduler">Working with the scheduler</a></h1>
+<p>The most important part of working with the scheduler is knowing how to tell the OS to avoid preempting your latency sensitive process.  While there are more exhaustive tuning guides than this, we will touch on the key tools that are used to make that happen.</p>
+<h2 id="isolated-cpus"><a class="header" href="#isolated-cpus">Isolated CPU's</a></h2>
+<p>The first think we can do is tell the OS what CPU's it should isolate, or avoid using for cores by scheduling. We do that with the <a href="https://www.linuxtopia.org/online_books/linux_kernel/kernel_configuration/re46.html">isolcpus</a> kernel flag. This does require a change to the boot configuration and a box restart.  Isolated cpu's will only run threads specifically assigned to that core by the thread using the affinity syscall.  For those on the JVM, there is an open source library called <a href="https://github.com/OpenHFT/Java-Thread-Affinity">Java Thread Affinity</a> by the open HFT project.</p>
+<p>So, what does this do?  It tells the kernel's load balancing based scheduler to ignore those cores and not consider them candidates for execution, outside of those threads specifically pinned to those cores.  This removes the risk of some random task on the computer causing our app to be preempted off of a core and moved around.  This can significantly reduce latency, and helps protect the process from things like humans SSH'ing onto the box to investigate logs, or a security agent running a scan.  Such users can still do what they need, but they are limited to the non-isolated CPU's to do it.</p>
+<p>As a general best practice, it is best to leave at least 1 physical core unisolated per socket.  This gives the OS and hardware interrupts somewhere to execute.  Remember, hardware interrupts must be handled on the socket that receives them.</p>
+<h2 id="avoid-syscalls"><a class="header" href="#avoid-syscalls">Avoid syscalls</a></h2>
+<p>Every system call is an opportunity for the OS to take control away from your application thread, but especially calls like sleep and lock/mutex related syscalls.</p>
+<h1 id="the-cost-of-locks"><a class="header" href="#the-cost-of-locks">The cost of locks</a></h1>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            var socket = new WebSocket("ws://localhost:3000/__livereload");
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="mermaid.min.js"></script>
+        
+        <script type="text/javascript" src="mermaid-init.js"></script>
+        
+
+        
+        
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            MathJax.Hub.Register.StartupHook('End', function() {
+                window.setTimeout(window.print, 100);
+            });
+        });
+        </script>
+        
+        
+
+    </body>
+</html>

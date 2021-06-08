@@ -1,0 +1,325 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Standards - Java Performance Lecture Notes</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        <meta name="author" value="Erik Helleren">
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Introduction</li><li class="chapter-item expanded "><a href="../introduction/introduction.html"><strong aria-hidden="true">1.</strong> Introductions</a></li><li class="chapter-item expanded "><a href="../introduction/standards.html" class="active"><strong aria-hidden="true">2.</strong> Standards</a></li><li class="chapter-item expanded "><a href="../introduction/keyTerms.html"><strong aria-hidden="true">3.</strong> Key Terms</a></li><li class="chapter-item expanded affix "><li class="part-title">Theory</li><li class="chapter-item expanded "><a href="../theory/queueTheory/index.html"><strong aria-hidden="true">4.</strong> Queue Theory</a></li><li class="chapter-item expanded "><a href="../theory/statsPrimer/index.html"><strong aria-hidden="true">5.</strong> Statistics Primer</a></li><li class="chapter-item expanded "><a href="../theory/distributionAnalysis/index.html"><strong aria-hidden="true">6.</strong> Distribution analysis</a></li><li class="chapter-item expanded affix "><li class="part-title">Hardware</li><li class="chapter-item expanded "><a href="../hardware/highLevel/index.html"><strong aria-hidden="true">7.</strong> Computer Architecture: High Level</a></li><li class="chapter-item expanded "><a href="../hardware/cpu.html"><strong aria-hidden="true">8.</strong> Computer Architecture: CPU Design</a></li><li class="chapter-item expanded "><a href="../hardware/Cache.html"><strong aria-hidden="true">9.</strong> Computer Architecture: Cache, RAM, and Locality</a></li><li class="chapter-item expanded affix "><li class="part-title">Operating System</li><li class="chapter-item expanded "><a href="../os/refresher/index.html"><strong aria-hidden="true">10.</strong> OS Refresher</a></li><li class="chapter-item expanded "><a href="../os/numa/index.html"><strong aria-hidden="true">11.</strong> NUMA and Numa Control</a></li><li class="chapter-item expanded "><a href="../os/scheduler/index.html"><strong aria-hidden="true">12.</strong> Working with the scheduler</a></li><li class="chapter-item expanded "><a href="../os/locks/index.html"><strong aria-hidden="true">13.</strong> The cost of locks</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Java Performance Lecture Notes</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="standards"><a class="header" href="#standards">Standards</a></h1>
+<p>Like most courses, we have outlined a set of standards we want students to be able to meet.  Think of them as learning goals for what you should know and be able to do. </p>
+<p>If you want, as you progress through this course, you can use this as a to track where you feel that you meet the standard and where you feel like you need improvement.</p>
+<p>TODO write more about how to read standards</p>
+<h2 id="theory"><a class="header" href="#theory">Theory</a></h2>
+<ol>
+<li>Explain queue theory as it applies to real life and draw analogies to computer systems.</li>
+<li>Define key terms: Service time, response time, utilization, capacity TODO more terms if needed</li>
+<li>Define the types of tests and explain how they are related: Throughput tests, capacity tests, and response time tests</li>
+<li>Explain how queueing theory can result a system having a reasonable service time, but a terrible response time.</li>
+<li>Explain the differences between measuring these values for response time and service time: Average, throughput (operations per unit of time), percentile distribution.</li>
+<li>Identify if a plot is CDF or PDF, and weigh the pros and cons of each when it comes to analyzing performance data.</li>
+<li>Interpret a CDF and PDF percentile plot of a component's service time by identifying modes, tails, and other analogous behavior.</li>
+</ol>
+<h2 id="hardware"><a class="header" href="#hardware">Hardware</a></h2>
+<ol>
+<li>Define the key physical parts of the computer: CPU cores, Registers, L1/L2 cache, L3 cache, CPU sockets, RAM, Networking</li>
+<li>Explain the pipelining architecture of a modern CPU, and how super-scalar execution allows a single core to do many things at once.</li>
+<li>Describe the approximate timings to fetch data or instructions from registers, L1 cache, L3 cache, and RAM</li>
+<li>Describe how communication occurs between CPU sockets on a multi socket server and identify why that may be expensive.</li>
+<li>Describe the key performance counters kept by the hardware and OS.</li>
+<li>Understand the concept of out of order execution</li>
+<li>Describe the branch predictor's job, how it does that job, and why that optimization can cause performance issues. </li>
+<li>Identify which common operations take multiple CPU cycles to execute.  i.e. Atomics, Division and modulus, etc.</li>
+<li>Describe how data's location in memory can impact performance</li>
+</ol>
+<h2 id="operating-system"><a class="header" href="#operating-system">Operating System</a></h2>
+<ol>
+<li>Understand and explain how the OS schedules execution on a CPU</li>
+<li>Explain what a context switch is to a lay person and why its suboptimal.</li>
+<li>Identify when isolating CPU core's is appropriate.</li>
+<li>Identify when pinning a particular thread to a CPU is appropriate and when its not.</li>
+<li>Define the difference between kernel space and user space.</li>
+<li>Describe different actions that happen in kernel space vs user space.</li>
+<li>Explain why kernel space is not a great place to have to go.</li>
+</ol>
+<h2 id="java"><a class="header" href="#java">Java</a></h2>
+<ol>
+<li>Describe how the JVM compiles class files and what those class files are</li>
+<li>Describe the job of the interpreter and how it does that job</li>
+<li>Describe how Just In Time compiler identifies code to be optimized</li>
+<li>Describe the different compiler levels, and how code can go back to interpreter mode.</li>
+<li>Identify pros and cons of JIT VS statically compiled and optimized code.</li>
+<li>Identify and explain the key ways that JIT can optimize code to perform faster: Inlining, Loop unrolling, Escape analysis.</li>
+<li>Explain why monomorphic and bimorphic dispatch make such a large impact on performance.</li>
+<li>Be able to generate, read and explain compilation logs</li>
+<li>Describe how java allocates memory for stack, heap, and off heap data structures.</li>
+<li>Identify what data is kept on the stack vs what's on the heap.</li>
+<li>Explain the concept of garbage collection and why is great for correctness but not ideal in low latency settings.</li>
+<li>Explain why that, in java, memory locality is rarely achievable with POJO's.</li>
+</ol>
+<h2 id="micro-benchmarking"><a class="header" href="#micro-benchmarking">Micro benchmarking</a></h2>
+<ol>
+<li>Describe why micro benchmarking is so hard.  TODO this needs to be made more concrete.</li>
+<li>Describe why micro benchmarking should not substitute real tests, but they are still an important tool.</li>
+<li>Identify when JMH is an appropriate choice for testing the performance of some code and when its not</li>
+<li>Author valid unit level JMH benchmarks which utilize state objects correctly</li>
+<li>Design meaningful JMH benchmarks for a given context</li>
+<li>Collect, collate, and analyze JMH results to either characterize a units performance</li>
+<li>Attach appropriate built in profilers to a run and understand their tradeoffs: i.e. GC and OTHERS!</li>
+<li>Identify when its appropriate to use async profiler when benchmarking code.</li>
+<li>Attach async profiler to JMH tests properly to generate flame graphs of cycles and allocations</li>
+<li>Analyze frame graphs to identify optimization opportunities.</li>
+</ol>
+<h2 id="deployed-performance-tests"><a class="header" href="#deployed-performance-tests">Deployed performance tests</a></h2>
+<ol>
+<li>Identify what you are trying to measure with a test before running the test.</li>
+<li>Be able to utilize an appropriate framework for your desired experiment.  Know when building a new one is required.</li>
+<li>Identify an appropriate profiler for you experiment.  TODO we should look at ones outside async profiler that are readily available.  </li>
+</ol>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../introduction/introduction.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../introduction/keyTerms.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../introduction/introduction.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../introduction/keyTerms.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            var socket = new WebSocket("ws://localhost:3000/__livereload");
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="../mermaid.min.js"></script>
+        
+        <script type="text/javascript" src="../mermaid-init.js"></script>
+        
+
+        
+
+    </body>
+</html>
