@@ -1,0 +1,353 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Teaching - Growing Software Engineers</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        <meta name="author" value="Erik Helleren">
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">Teaching</li><li class="chapter-item expanded "><a href="../teaching/1_intro.html"><strong aria-hidden="true">2.</strong> Teaching - Intro</a></li><li class="chapter-item expanded "><a href="../teaching/2_core_skills.html"><strong aria-hidden="true">3.</strong> Core Skills</a></li><li class="chapter-item expanded "><a href="../teaching/3_teaching.html" class="active"><strong aria-hidden="true">4.</strong> Teaching</a></li><li class="chapter-item expanded "><a href="../teaching/4_measurement.html"><strong aria-hidden="true">5.</strong> Measurement</a></li><li class="chapter-item expanded "><a href="../teaching/5_independence.html"><strong aria-hidden="true">6.</strong> Independence</a></li><li class="chapter-item expanded affix "><li class="part-title">Debugging</li><li class="chapter-item expanded "><a href="../debugging/1_intro.html"><strong aria-hidden="true">7.</strong> Debugging - Intro</a></li><li class="chapter-item expanded affix "><li class="part-title">Coaching</li><li class="chapter-item expanded "><a href="../coaching/1_intro.html"><strong aria-hidden="true">8.</strong> Coaching - Intro</a></li><li class="chapter-item expanded "><a href="../coaching/2_coaching.html"><strong aria-hidden="true">9.</strong> Coaching</a></li><li class="chapter-item expanded "><a href="../coaching/3_feedback.html"><strong aria-hidden="true">10.</strong> Feedback</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Growing Software Engineers</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                        <a href="https://www.buymeacoffee.com/erik.helleren" title="Buy Me A Coffee" aria-label="Buy Me A Coffe">
+                            <i class="fa fa-coffee" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="teaching"><a class="header" href="#teaching">Teaching</a></h1>
+<p>Teaching is the art and science of fostering learning new concepts.  Learning is done by your student, and involves understanding and practicing new concepts or skills. Here I use the word &quot;Practice&quot; both in the way that you would have a practice exercise in a text book, and where you have a professional practices where you are iterating and improving on your craft.  The key is improving.</p>
+<p>Just because a teacher teaches, doesn't mean that a student learns.</p>
+<h2 id="lectures"><a class="header" href="#lectures">Lectures</a></h2>
+<p>Lectures are a one directional flow of knowledge from presenter to audience member. When used in isolation, it doesn't support the deep understanding our engineers need.  As such, very few situations call for significant lecturing.  Exceptions typically have several of these traits: </p>
+<ul>
+<li>It is difficult for a student to do self directed research on the subject.
+<ul>
+<li>There is limited content on the subject.</li>
+<li>Significant existing content is misleading or wrong.</li>
+<li>Its difficult to know where to start without a lot of context</li>
+</ul>
+</li>
+<li>There is a large body of knowledge that is required before it can be applied.</li>
+<li>The subject is very theoretical</li>
+</ul>
+<p>If you feel the need to lecture, its key that you prepare, preserve your lecture, and present well.  Preparation should consist of documentation describing the content you will be covering in enough depth to convey the subject you are covering.  Those notes don't need to be perfect, but they should be made available before your presentation and updated just after.  Likewise, preserve your lectures as often as possible via a recording.  It should capture your first and foremost.  Your slides should be an afterthought.</p>
+<p>Lastly, <a href="https://www.youtube.com/watch?v=Unzc731iCUY&amp;t=6s">present well</a> by knowing how to communicate your ideas.  Consider that video required watching if you want to lecture, noting that you are lecturing and not doing a job talk.</p>
+<h2 id="modeling"><a class="header" href="#modeling">Modeling</a></h2>
+<p><a href="https://barkleypd.com/blog/instructional-strategy-modeling-why-how-and-why-not/">Modeling</a> is a classic technique used by teachers.  At its core, modeling simply shows the student how to apply the skill with an example done by the teacher.  Sometimes we feel pressured to help our student by making them write every line of code, especially when presented with new situations.  But if they don't, for example, know how to use sockets, its unlikely for them to learn much when you dictate the methods to call and exceptions to catch.</p>
+<p>Modeling allows you to be in the drivers seat on a real work item.  Its up to you if you model by using a synthetic example you created, or an on-the-job example.  What is key is that the example is representative, can be generalized, and allows you and the student to demonstrate the skill(s) you want the student to learn.</p>
+<p>While modeling, its best to start of with a &quot;I do, we do, you do&quot; process.  For the first example, show the student how to do it. Its important that you thoroughly explain what you are doing and why as you do the task.  Spend time discussing all the dead ends that lead you to your final result, and why those choices were discarded.  Intuition should be noted but explored thoroughly. This is where concepts are introduced, so take your time here.</p>
+<p><em>We do</em> is where we start to get into pairing.  You are quick to provide hints, or guiding questions as they work through a different example or on the next part of the original example.  his is the first time the student is applying the concepts, so be gentle but inquisitive.  Do not accept vagueness around the subject you are focusing on.</p>
+<blockquote>
+<p>You can still have the keyboard if you want, but have <a href="https://en.wikipedia.org/wiki/Co-driver">them navigate while you drive.</a>.  This means you convert their words into code, letting them focus on the new concept while you take care of some of the minutia.</p>
+</blockquote>
+<p>Lastly <em>you do</em> is where the student does it themselves.  This pulls together the new concepts and the minutia of writing code that works.  Its important that you practice patience at this point.  It may be appropriate to do this part asynchronously.  Give the student time, and wait till they ask for help before providing it.  Its better to give help in small increments to foster critical thought. Lastly, don't assume they are done until they tell you.</p>
+<p>Don't be afraid to pull the student into your work to model behaviors.  Pulling them into your refactoring process, or when you are researching a new feature provides a great learning experience.  Make sure to give them a chance to apply these skills though soon after to reinforce the concepts.</p>
+<h3 id="pairing"><a class="header" href="#pairing">Pairing</a></h3>
+<p>Pairing is distinct from modeling in that the focus is applying more so than leaning.  Not to say that pairing isn't a great way to learn and grow, just that the focus is different.  As the teacher, its you job to know when you should be in <a href="./pairing.html">pairing mode</a> vs when you should be in modeling mode.</p>
+<h2 id="understand-their-thought-process"><a class="header" href="#understand-their-thought-process">Understand their thought process</a></h2>
+<p>One of the key parts of developing a quality software engineer is to build a good thought process.  When investigating a though process, I like to envision a mental <a href="https://en.wikipedia.org/wiki/Mind_map">mind map</a>.  Each strand of thought branches outward from the problem, building understanding of the problem, the solution space, investigating the solutions, and so on.</p>
+<p>While asking for mind maps for larger projects and work items is appropriate, its very high cost.  As such, I recommend conducting frequent and timely mini post mortem interviews.  By asking open ended questions and  is the best way to investigate your students chain of thought.  This is a great tool when applying modeling, pairing, and synchronous code review.  It lets you understand why the end state got to be what it is. </p>
+<p>Like all post mortem's, its value is strongly correlated with the quality of the questions being asked.  So before you start the interview, spend a few moments to create a plan.</p>
+<ul>
+<li>Decide on the scope.  It could be on a single method or a PR.  It can be on a design document or something that the student says they are planning on doing.</li>
+<li>Would it be best to start at the result or the problem?  The result is typically best for debugging code quality and correctness issues, and the problem is typically the best place to start for design related questions.</li>
+<li>Review the problem and result and try to build your own mental mind map.</li>
+</ul>
+<p>For each node in the map that was correct, fully thought out, and intentionally addressed, provide positive feedback.  For example &quot;Yes, you did think about network and system issues correctly when you implemented this exception handling and retry logic.&quot;  This is especially important to do if you have a map with a bad node or decision in the middle.  Keep going forward after you discuss that bad choice to find the right choices after it.  It can prevent backsliding and self-doubt around the skills that they already have in the bag.  It stresses that to the student that they got a 90% instead of a 50%.</p>
+<p>Next, each node that wasn't quite fully flushed out, but was headed in the right direction you get to provide mixed feedback.  This lets the student know they did something right, they just needed to take an extra step or two.</p>
+<p>Lastly are nodes that are just bad.  Approach these carefully.  Try to understand what happened here.  Was it just a new concept that was never learned?  Was it sloppiness or forgetfulness?  Did it depend on a skill that was introduced but the student didn't have the time to develop proficiency? Seriously examine the &quot;bad&quot; node before providing feedback.  This might involve delving in a bit more to understand the circumstance.</p>
+<p>By focusing on the thought process instead of the final product it is a bit easier to provide high value and actionable feedback.  Stress with your student that Sr engineers are constantly trying to improve their thought processes to be more robust, so there is no shame in needing improvement.  Remember: Your student is human and wants to feel like they are meeting expectations and growing.  It will also take time for them to develop these skills.   Stressing the following whenever using this technique: </p>
+<ol>
+<li>Your thought process took X years of practice </li>
+<li>Your level isn't perfect</li>
+<li>You are trying to improve as well</li>
+<li>The expectation is to improve over time, not to get to perfect.</li>
+</ol>
+<blockquote>
+<p>Examine the mental mind map one node at a time.  Provide feedback on each node to reinforce good habits and constructive feedback that is hyper targeted.</p>
+</blockquote>
+<p>Don't be shy of using this technique when the result was &quot;correct&quot;.  Worst case, this reinforces the skills they do have, gives them confidence, and gives them an opportunity to practice communication.  Best case, this can reveal subtle bugs in the student's thought process that might cause larger issues later.</p>
+<h2 id="asking-good-questions"><a class="header" href="#asking-good-questions">Asking good questions</a></h2>
+<p>When trying to build critical thinking skills, like engineering, one of the best tools is a good question.  So why is this?  The answer depends on the type of question being asked, and the situation its being deployed in.</p>
+<h3 id="the-open-ended-question"><a class="header" href="#the-open-ended-question">The open ended question</a></h3>
+<p>Open ended questions are most easily defined by defining close-ended questions.  A close ended question is a question with a finite set of options and a clear correct answer.  There is little place in software engineering for close ended questions.  That said, this is a continuum where both extremes are rarely called for in the context of teaching.</p>
+<p>Here are some open ended questions to try in a teaching context.</p>
+<ul>
+<li>&quot;What are some potential solutions?&quot; is a great way to start a brainstorming session</li>
+<li>&quot;What is the problem we are trying to solve?&quot;</li>
+<li>&quot;What are you thinking?&quot; Often used to get someone who has been in silent contemplation for a while to discuss where their mind is going</li>
+<li>&quot;Are there other options you can think of?&quot; After some options have been discussed.</li>
+<li>&quot;What are the tradeoffs of A?&quot;</li>
+<li>&quot;Which way do you want to proceed?&quot; followed by &quot;Why?&quot; to get commitment first followed by the explication.</li>
+<li>&quot;Is there a tool that could make this easier?&quot; often asked when refactoring.</li>
+<li>&quot;So?&quot;, &quot;And?&quot;, and &quot;Tell me more.&quot; are all gentle prods to keep going</li>
+</ul>
+<p>The goal with these open ended questions is to exercise the discrete skills underlying software engineering.  Writing correct and serviceable code, understanding requirements, testing, and more.  As skills grow, we expect our students to ask themselves these questions and go about answering them thoroughly and thoughtfully.</p>
+<blockquote>
+<p>The more open your question, the more developed the students skill must be to answer correctly. </p>
+</blockquote>
+<h3 id="leading-questions"><a class="header" href="#leading-questions">Leading questions</a></h3>
+<p>A leading question in our context is best thought of as a hint disguised as a question.  Leading questions need to be tactfully crafted to deliver just the right amount of direction.  To much, and you risk patronizing your student.  To little and they might not pick up the trail.</p>
+<p>A leading question has these properties:</p>
+<ol>
+<li>Directs to focus on something particular</li>
+<li>Open ended enough so the student has to think and communicate a response</li>
+<li>Close ended enough so their scope of thought stays focused</li>
+</ol>
+<p>They can also range from open to closed.  Lets think about a PR which includes this code (Written as psudocode for clarity), lets consider some feedback options.  For both, the focus is on the skill of code readability.</p>
+<pre><code class="language-java">public static List&lt;String&gt; extracted(int arg0, DbConnection arg1){
+    List&lt;Row&gt; result = arg1.select(&quot;select description,id from parts where barcode == ?&quot;, arg0).execute();
+    List&lt;String&gt; out = new ArrayList&lt;&gt;();
+    for(int i=0;i&lt;result.size();i++&gt;){
+        Row r = result.get(i);
+        out.add(r.get(0));
+    }
+    return out;
+}
+</code></pre>
+<p>Take a few moments and write down 2 or 3 different types of comments you could provide on this code.</p>
+<p>First, here is an open example which I would put on line 1.  First I commend the extraction of the method, which is clearly what happened based on the name of the method and the arg names.  Next I and asking for a revision.  Thats it.</p>
+<blockquote>
+<p>Nice job extracting this into a method.  Can you take a second pass on the method itself?</p>
+</blockquote>
+<p>I could make it less open by adding &quot;to improve clarity&quot; reducing the scope of the revision.</p>
+<p>Even less open, we could do something like this:</p>
+<blockquote>
+<p>Line 1: Nice job extracting this into a method. </p>
+<p>Line 1: Can you think of a better method name and parameter names?</p>
+<p>Line 5: Is there a better option than a regular for loop?</p>
+</blockquote>
+<p>As we can see the level of specificity in our questions related to how far the student has developed the skill of writing readable code.    If they are at the foundational level, the latter might be appropriate.  If they are developing, the prior should result in readable code or followup questions.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../teaching/2_core_skills.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../teaching/4_measurement.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                    <hr>
+                    <div>
+                        <p>
+                            &copy; Erik Helleren, 2022.  Built on 2022-01-18 from commit <code class="hljs">a429defc</code>. <a href="https://www.buymeacoffee.com/erik.helleren">Buy me a coffee.</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../teaching/2_core_skills.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../teaching/4_measurement.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="../mermaid.min.js"></script>
+        
+        <script type="text/javascript" src="../mermaid-init.js"></script>
+        
+
+        
+
+    </body>
+</html>
